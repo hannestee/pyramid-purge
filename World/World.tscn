@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdlggjsuhf2e1"]
+
+[ext_resource type="PackedScene" uid="uid://dtobhaccvxs6y" path="res://Player/Player.tscn" id="1_bxonk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qylt6"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_cvc35"]
+sky_material = SubResource("ProceduralSkyMaterial_qylt6")
+
+[sub_resource type="Environment" id="Environment_cd2br"]
+background_mode = 2
+sky = SubResource("Sky_cvc35")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrn05"]
+albedo_color = Color(0.914888, 0.825837, 0.410733, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7nefm"]
+albedo_color = Color(0.472033, 0.415012, 0.141626, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d7icj"]
+albedo_color = Color(0.382326, 0.381154, 0, 1)
+
+[node name="World" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cd2br")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="FlatSurface" type="CSGBox3D" parent="Level"]
+use_collision = true
+size = Vector3(100, 0.2, 100)
+material = SubResource("StandardMaterial3D_hrn05")
+
+[node name="Pyramid" type="CSGBox3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89337, 10.3301, -17.3804)
+use_collision = true
+size = Vector3(51.428, 20.8603, 48.6196)
+material = SubResource("StandardMaterial3D_7nefm")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.8876, 11.8767, 35.4737)
+radius = 10.56
+height = 23.2003
+sides = 4
+cone = true
+material = SubResource("StandardMaterial3D_d7icj")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_bxonk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21648, 19)
